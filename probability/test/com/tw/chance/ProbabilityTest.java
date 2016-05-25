@@ -58,5 +58,19 @@ public class ProbabilityTest {
         assertThat(new Probability(.125).not().not(), is(new Probability(.125)));
     }
 
+    @Test
+    public void shouldAddProbabilityValuesInOROperation() throws Exception {
+        assertThat(new Probability(.3).or(new Probability(.2)), is(new Probability(.44)));
+        assertThat(new Probability(1).or(new Probability(.2)), is(new Probability(1)));
+        assertThat(new Probability(.4).or(new Probability(1)), is(new Probability(1)));
+        assertThat(new Probability(1).or(new Probability(1)), is(new Probability(1)));
+        assertThat(new Probability(.75).or(new Probability(.25)), is(new Probability(.8125)));
+    }
 
+    @Test
+    public void shouldMultiplyProbabilityValuesInAndOperation() throws Exception {
+        assertThat(new Probability(.3).and(new Probability(.2)), is(new Probability(.06)));
+        assertThat(new Probability(.3).and(new Probability(0)), is(new Probability(0)));
+        assertThat(new Probability(0).and(new Probability(.4)), is(new Probability(0)));
+    }
 }
